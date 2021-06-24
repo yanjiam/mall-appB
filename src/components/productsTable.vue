@@ -52,7 +52,7 @@ const columns = [
     key: 'inventory',
   },
   {
-    title: '上加状态',
+    title: '上架状态',
     dataIndex: 'status',
     key: 'status',
     customRender(text, record) {
