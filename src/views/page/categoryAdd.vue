@@ -49,7 +49,7 @@ export default {
         });
       } else {
         categoryApi.categoryadd(this.form).then((res) => {
-          console.log(res,this.form);
+          console.log(res, this.form);
           this.$message.success('新增成功');
           this.$router.push({
             name: 'Category',

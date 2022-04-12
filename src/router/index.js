@@ -71,7 +71,7 @@ const ayncRouterMap = [
           hidden: true,
         },
         component: () => import('@/views/page/categoryAdd.vue'),
-      },],
+      }],
   }];
 
 const routes = [

@@ -50,8 +50,8 @@ export default {
   },
   methods: {
     onSubmit() {
-        this.$emit('onSubmit', this.form);
-        return true;
+      this.$emit('onSubmit', this.form);
+      return true;
     },
   },
 };
