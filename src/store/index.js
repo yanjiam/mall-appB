@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { setCookie, getUserCookie, removeUserCookie } from '@/utils/userCookie';
+import { setCookie, getBusinessCookie, removeBusinessCookie } from '@/utils/businessCookie';
 
 Vue.use(Vuex);
 
@@ -9,7 +9,7 @@ export default new Vuex.Store({
     // 导航的收放状态 false为展开  true为收起来
     collapsed: false,
     // 用户信息
-    user: getUserCookie(),
+    business: getBusinessCookie(),
     // 存储菜单的路由
     menuRoutes: [],
   },
@@ -17,15 +17,14 @@ export default new Vuex.Store({
     changeCollapsed(state) {
       state.collapsed = !state.collapsed;
     },
-    setUserInfo(state, userInfo) {
-      state.user = userInfo;
+    setBusinessInfo(state, businessInfo) {
+      state.business = businessInfo;
     },
     logout(state) {
-      state.user = {
-        username: '',
-        appkey: '',
-        role: '',
-        email: '',
+      state.business = {
+        b_name: '',
+        pin: '',
+        power: '',
       };
     },
     changeMenuRoutes(state, routes) {
@@ -36,13 +35,14 @@ export default new Vuex.Store({
     changeCollapsed({ commit }) {
       commit('changeCollapsed');
     },
-    setUserInfo({ commit }, userInfo) {
-      commit('setUserInfo', userInfo);
-      setCookie(userInfo);
+    setBusinessInfo({ commit }, businessInfo) {
+      commit('setBusinessInfo', businessInfo);
+      const { pin, power } = businessInfo;
+      setCookie({ pin, power });
     },
     logout({ commit }) {
       commit('logout');
-      removeUserCookie();
+      removeBusinessCookie();
     },
     changeMenuRoutes({ commit }, routes) {
       commit('changeMenuRoutes', routes);

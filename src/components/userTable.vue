@@ -9,22 +9,28 @@
       slot="operation"
       slot-scope="text, record"
     >
-      <a-button @click="editCategory(record)">编辑</a-button>
-      <a-button @click="removeCategory(record)">删除</a-button>
+      <a-button @click="editUser(record)">编辑</a-button>
+      <a-button @click="removeUser(record)">删除</a-button>
     </div>
   </a-table>
 </template>
 <script>
 const columns = [
   {
-    title: 'ID',
-    dataIndex: '_id',
-    key: 'id',
+    title: 'pin',
+    dataIndex: 'pin',
+    key: 'pin',
   },
   {
-    title: '名称',
-    dataIndex: 'name',
+    title: '用户名称',
+    dataIndex: 'username',
     key: 'name',
+    ellipsis: true,
+  },
+  {
+    title: '权限等级',
+    dataIndex: 'power',
+    key: 'power',
     ellipsis: true,
   },
   {
@@ -56,17 +62,17 @@ export default {
     changePage(page) {
       this.$emit('change', page);
     },
-    editCategory(record) {
+    editUser(record) {
       this.$emit('edit', record);
     },
-    removeCategory(record) {
+    removeUser(record) {
       this.$emit('remove', record);
     },
   },
 };
 </script>
 <style lang="less">
-.category-list {
+.user-list {
   padding-top: 60px;
 }
 </style>

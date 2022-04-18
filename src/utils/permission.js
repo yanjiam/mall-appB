@@ -21,9 +21,6 @@ const roleToRoute = {
     {
       name: 'ProductEdit',
     },
-    {
-      name: 'CategoryEdit',
-    },
   ],
   admin: [
     {
@@ -36,19 +33,40 @@ const roleToRoute = {
       name: 'ProductAdd',
     },
     {
+      name: 'ProductEdit',
+    },
+    {
       name: 'Category',
     },
     {
-      name: 'ProductEdit',
-    },
-    {
-      name: 'categoryAdd',
-    },
-    {
-      name: 'ProductEdit',
+      name: 'CategoryAdd',
     },
     {
       name: 'CategoryEdit',
+    },
+    {
+      name: 'User',
+    },
+    {
+      name: 'UserList',
+    },
+    {
+      name: 'UserAdd',
+    },
+    {
+      name: 'UserEdit',
+    },
+    {
+      name: 'Business',
+    },
+    {
+      name: 'BusinessList',
+    },
+    {
+      name: 'BusinessAdd',
+    },
+    {
+      name: 'BusinessEdit',
     },
   ],
 };
@@ -59,9 +77,10 @@ const roleToRoute = {
  * @param {Array} routes
  *
  */
-export default function getMenuRoute(role, routes) {
-  console.log(role, routes);
-  const allowRoutesName = roleToRoute[role].map((item) => item.name);
+export default function getMenuRoute(power, routes) {
+  console.log('power: ', power);
+  const powerRoutr = power === 1 ? 'coustomer' : 'admin';
+  const allowRoutesName = roleToRoute[powerRoutr].map((item) => item.name);
   const resultRoutes = routes.filter((r) => {
     const obj = r;
     if (allowRoutesName.indexOf(r.name) !== -1) {

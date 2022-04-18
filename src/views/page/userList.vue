@@ -1,21 +1,20 @@
 <template>
-  <div class="category-list">
-    <a-button class="category-add-btn">
-      <router-link :to="{name:'categoryAdd'}">新增</router-link>
+  <div class="user-list">
+    <a-button class="user-add-btn">
+      <router-link :to="{name:'UserAdd'}">新增</router-link>
     </a-button>
     <!-- 表格 -->
-    <category-table :data="tableData"
-                  class="table"
+    <user-table :data="tableData"
                   :page="page"
                   @change="changePage"
-                  @edit="editCategory"
-                  @remove="removeCategory"/>
+                  @edit="editUser"
+                  @remove="removeUser"/>
   </div>
 </template>
 
 <script>
-import categoryTable from '@/components/categoryTable.vue';
-import categoryApi from '@/api/category';
+import userTable from '@/components/userTable.vue';
+import userApi from '@/api/user';
 
 export default {
   data() {
@@ -30,14 +29,14 @@ export default {
     };
   },
   components: {
-    categoryTable,
+    userTable,
   },
   created() {
     this.getTableData();
   },
   methods: {
     getTableData() {
-      categoryApi.list({
+      userApi.selectAll({
         page: this.page.current,
         size: this.page.pageSize,
       })
@@ -48,29 +47,28 @@ export default {
           }));
           this.page.total = res.data.total;
         });
-      console.log(categoryApi.list());
     },
     changePage(page) {
       this.page = page;
       this.getTableData();
     },
-    editCategory(record) {
+    editUser(record) {
       this.$router.push({
-        name: 'CategoryEdit',
+        name: 'UserEdit',
         params: {
           // eslint-disable-next-line no-underscore-dangle
-          _id: record._id,
+          pin: record.pin,
         },
       });
     },
-    removeCategory(record) {
+    removeUser(record) {
       this.$confirm({
         title: '确认删除',
-        content: () => <div style="color:red;">{`确认删除:${record.name}的类目吗`}</div>,
+        content: () => <div style="color:red;">{`确认删除:${record.username}的类目吗`}</div>,
         onOk: () => {
-          categoryApi.categoryDelete({
+          userApi.delete({
             // eslint-disable-next-line no-underscore-dangle
-            _id: record._id,
+            pin: record.pin,
           }).then(() => {
             console.log(this);
             this.getTableData();
@@ -87,9 +85,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.category-list {
+.user-list {
   position: relative;
-  .category-add-btn {
+  .user-add-btn {
     position: absolute;
     right: 250px;
     top: 14px;

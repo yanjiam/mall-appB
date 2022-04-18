@@ -47,12 +47,12 @@ export default {
     SaleInfo,
   },
   created() {
-    const { id } = this.$route.params;
-    console.log(id);
-    if (id) {
+    const { _id } = this.$route.params;
+    console.log(_id);
+    if (_id) {
       // 读取商品详情
-      api.detail(id).then((res) => {
-        this.form = res;
+      api.detail({ _id }).then((res) => {
+        this.form = res.data.data;
       });
     }
   },
@@ -64,7 +64,8 @@ export default {
       };
       if (this.current === 1) {
         //   提交数据
-        if (this.$route.params.id) {
+        // eslint-disable-next-line no-underscore-dangle
+        if (this.$route.params._id) {
           api.edit(this.form).then((res) => {
             console.log(res);
             this.$message.success('修改成功');

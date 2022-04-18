@@ -3,15 +3,17 @@
     <!-- 搜索 -->
     <search-box @submit="searchSubmit" :data="categoryList" />
     <a-button class="product-add-btn">
-      <router-link :to="{name: 'ProductAdd'}">添加商品</router-link>
+      <router-link :to="{ name: 'ProductAdd' }">添加商品</router-link>
     </a-button>
     <!-- 表格 -->
-    <productTable :data="tableData"
-                  :page="page"
-                  @change="changePage"
-                  :categoryList="categoryList"
-                  @edit="editProduct"
-                  @remove="removeProduct"/>
+    <productTable
+      :data="tableData"
+      :page="page"
+      @change="changePage"
+      :categoryList="categoryList"
+      @edit="editProduct"
+      @remove="removeProduct"
+    />
   </div>
 </template>
 
@@ -42,8 +44,8 @@ export default {
   },
   async created() {
     await categoryApi.list().then((res) => {
-      this.categoryList = res.data;
-      res.data.forEach((item) => {
+      this.categoryList = res.data.data;
+      this.categoryList.forEach((item) => {
         this.categoryObj[item.id] = item;
       });
     });
@@ -63,11 +65,8 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.page.total = res.total;
-          this.tableData = res.data.map((item) => ({
-            ...item,
-            categoryName: this.categoryObj[item.category].name,
-          }));
+          this.page.total = res.data.total;
+          this.tableData = res.data.data;
         });
     },
     changePage(page) {
@@ -78,21 +77,27 @@ export default {
       this.$router.push({
         name: 'ProductEdit',
         params: {
-          id: record.id,
+          // eslint-disable-next-line no-underscore-dangle
+          _id: record._id,
         },
       });
     },
     removeProduct(record) {
       this.$confirm({
         title: '确认删除',
-        content: () => <div style="color:red;">{`确认删除标题为:${record.title}的商品吗`}</div>,
+        content: () => (
+          <div style="color:red;">{`确认删除标题为:${record.title}的商品吗`}</div>
+        ),
         onOk: () => {
-          api.remove({
-            id: record.id,
-          }).then(() => {
-            console.log(this);
-            this.getTableData();
-          });
+          api
+            .delete({
+              // eslint-disable-next-line no-underscore-dangle
+              _id: record._id,
+            })
+            .then(() => {
+              console.log(this);
+              this.getTableData();
+            });
         },
         onCancel() {
           console.log('Cancel');

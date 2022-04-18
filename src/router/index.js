@@ -54,8 +54,8 @@ const ayncRouterMap = [
         },
         component: () => import('@/views/page/category.vue'),
       }, {
-        path: 'CategoryAdd',
-        name: 'categoryAdd',
+        path: 'categoryAdd',
+        name: 'CategoryAdd',
         meta: {
           title: '添加类目',
           icon: 'file-add',
@@ -72,7 +72,92 @@ const ayncRouterMap = [
         },
         component: () => import('@/views/page/categoryAdd.vue'),
       }],
-  }];
+  },
+  {
+    path: '/user',
+    name: 'User',
+    meta: {
+      title: '用户管理',
+      icon: 'inbox',
+      hidden: false,
+    },
+    component: Home,
+    children: [
+      {
+        path: 'list',
+        name: 'UserList',
+        meta: {
+          title: '用户列表',
+          icon: 'unordered-list',
+          hidden: false,
+        },
+        component: () => import('@/views/page/userList.vue'),
+      },
+      {
+        path: 'add',
+        name: 'UserAdd',
+        meta: {
+          title: '新增用户',
+          icon: 'file-add',
+          hidden: false,
+        },
+        component: () => import('@/views/page/userAdd.vue'),
+      },
+      {
+        path: 'edit/:pin',
+        name: 'UserEdit',
+        meta: {
+          title: '编辑用户',
+          icon: 'file-add',
+          hidden: true,
+        },
+        component: () => import('@/views/page/userAdd.vue'),
+      },
+    ],
+  },
+  {
+    path: '/business',
+    name: 'Business',
+    meta: {
+      title: '商家管理',
+      icon: 'inbox',
+      hidden: false,
+    },
+    component: Home,
+    children: [
+      {
+        path: 'list',
+        name: 'BusinessList',
+        meta: {
+          title: '商家列表',
+          icon: 'unordered-list',
+          hidden: false,
+        },
+        component: () => import('@/views/page/businessList.vue'),
+      },
+      {
+        path: 'add',
+        name: 'BusinessAdd',
+        meta: {
+          title: '新增商家',
+          icon: 'file-add',
+          hidden: false,
+        },
+        component: () => import('@/views/page/businessAdd.vue'),
+      },
+      {
+        path: 'edit/:pin',
+        name: 'BusinessEdit',
+        meta: {
+          title: '编辑商家',
+          icon: 'file-add',
+          hidden: true,
+        },
+        component: () => import('@/views/page/businessAdd.vue'),
+      },
+    ],
+  },
+];
 
 const routes = [
   {
@@ -113,9 +198,9 @@ const router = new VueRouter({
 let isAddRoutes = false;
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
-    if (store.state.user.appkey && store.state.user.username && store.state.user.role) {
+    if (store.state.business.pin && store.state.business.b_name && store.state.business.power) {
       if (!isAddRoutes) {
-        const menuRoutes = getMenuRoutes(store.state.user.role, ayncRouterMap);
+        const menuRoutes = getMenuRoutes(store.state.business.power, ayncRouterMap);
         store.dispatch('changeMenuRoutes', routes.concat(menuRoutes)).then(() => {
           router.addRoutes(menuRoutes);
           next();

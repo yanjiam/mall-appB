@@ -21,7 +21,7 @@
       </a-form-model-item>
       <a-form-model-item label="商品相册" prop="images">
         <a-upload
-          :action="'http://mallapi.duyiedu.com/upload/images?appkey=' + $store.state.user.appkey"
+          action="http://mallapi.duyiedu.com/upload/images?appkey=LiuDeHua_1616117821248"
           list-type="picture-card"
           :file-list="fileList"
           @preview="handlePreview"

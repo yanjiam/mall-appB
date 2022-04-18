@@ -5,9 +5,6 @@
     :label-col="labelCol"
     :wrapper-col="wrapperCol"
   >
-    <a-form-model-item label="id">
-      <a-input v-model="form.id" />
-    </a-form-model-item>
     <a-form-model-item label="类目名称">
       <a-input v-model="form.name" />
     </a-form-model-item>

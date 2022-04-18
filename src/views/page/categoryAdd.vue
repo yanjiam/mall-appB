@@ -25,22 +25,23 @@ export default {
     CategoryForm,
   },
   created() {
-    const { id } = this.$route.params;
-    console.log(id);
-    if (id) {
+    const { _id } = this.$route.params;
+    if (_id) {
       // 读取商品详情
-      categoryApi.detail(id).then((res) => {
-        this.form = res;
+      categoryApi.categoryEdit({ _id }).then((res) => {
+        console.log(res);
+        this.form = res.data.data;
+        this.form.son = this.form.c_items.join(',');
       });
     }
   },
   methods: {
     onSubmit(form) {
       this.form.c_items = form.son.split(',');
-      this.form.id = form.id;
       this.form.name = form.name;
-      if (this.$route.params.id) {
-        categoryApi.categoryedit(this.form).then((res) => {
+      // eslint-disable-next-line no-underscore-dangle
+      if (this.$route.params._id) {
+        categoryApi.detail(this.form).then((res) => {
           console.log(res);
           this.$message.success('修改成功');
           this.$router.push({
@@ -48,7 +49,7 @@ export default {
           });
         });
       } else {
-        categoryApi.categoryadd(this.form).then((res) => {
+        categoryApi.categoryAdd(this.form).then((res) => {
           console.log(res, this.form);
           this.$message.success('新增成功');
           this.$router.push({

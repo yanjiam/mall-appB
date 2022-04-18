@@ -10,8 +10,9 @@
 const columns = [
   {
     title: 'ID',
-    dataIndex: 'id',
+    dataIndex: '_id',
     key: 'id',
+    ellipsis: true,
   },
   {
     title: '标题',
@@ -45,6 +46,7 @@ const columns = [
     title: '标签',
     dataIndex: 'tags',
     key: 'tags',
+    ellipsis: true,
   },
   {
     title: '限制购买数量',
@@ -79,7 +81,9 @@ export default {
     tableData() {
       return this.data.map((item) => ({
         ...item,
-        key: item.id,
+        // eslint-disable-next-line no-underscore-dangle
+        key: item._id,
+        tags: item.tags.join('，'),
       }));
     },
   },

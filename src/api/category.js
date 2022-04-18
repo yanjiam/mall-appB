@@ -3,19 +3,24 @@
 import axios from '@/axios';
 
 export default {
+  // 查询类目列表接口
   list(params) {
-    return axios.get('/category/all', { params });
+    return axios.post('/category/all', params);
   },
-  categoryadd(params) {
-    return axios.get('/category/add', { params });
+  // 添加类目
+  categoryAdd(params) {
+    return axios.post('/category/add', params);
   },
-  detail(id) {
-    return axios.get(`/category/${id}`);
+  // 查询类目详细
+  detail(params) {
+    return axios.post('/category/queryInfo', params);
   },
-  categoryedit(params) {
-    return axios.put('/category/edit', { params });
+  // 编辑类目
+  categoryEdit(params) {
+    return axios.post('/category/edit', params);
   },
-  categorydelete(params) {
-    return axios.delete('/category/:id', { params });
+  // 删除类目
+  categoryDelete(params) {
+    return axios.post('/category/delete', params);
   },
 };

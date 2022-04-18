@@ -1,4 +1,5 @@
 <template>
+  <!-- <ve-line :data="chartData"></ve-line> -->
   <div>1</div>
 </template>
 
