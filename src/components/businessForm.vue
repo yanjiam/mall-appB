@@ -9,8 +9,8 @@
     <a-form-model-item label="邮箱" props="pin" required>
       <a-input v-model="form.pin" />
     </a-form-model-item>
-    <a-form-model-item label="用户名" props="b_name" required>
-      <a-input v-model="form.b_name" />
+    <a-form-model-item label="用户名" props="bname" required>
+      <a-input v-model="form.bname" />
     </a-form-model-item>
     <a-form-model-item label="登录密码" props="passwd" required>
       <a-input v-model="form.passwd" />

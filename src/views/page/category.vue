@@ -1,7 +1,7 @@
 <template>
   <div class="category-list">
     <a-button class="category-add-btn">
-      <router-link :to="{name:'categoryAdd'}">新增</router-link>
+      <router-link :to="{name:'CategoryAdd'}">新增</router-link>
     </a-button>
     <!-- 表格 -->
     <category-table :data="tableData"

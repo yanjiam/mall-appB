@@ -23,7 +23,7 @@ const columns = [
   },
   {
     title: '用户名称',
-    dataIndex: 'b_name',
+    dataIndex: 'bname',
     key: 'name',
     ellipsis: true,
   },

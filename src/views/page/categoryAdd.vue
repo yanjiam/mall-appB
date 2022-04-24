@@ -28,7 +28,7 @@ export default {
     const { _id } = this.$route.params;
     if (_id) {
       // 读取商品详情
-      categoryApi.categoryEdit({ _id }).then((res) => {
+      categoryApi.detail({ _id }).then((res) => {
         console.log(res);
         this.form = res.data.data;
         this.form.son = this.form.c_items.join(',');
@@ -41,7 +41,7 @@ export default {
       this.form.name = form.name;
       // eslint-disable-next-line no-underscore-dangle
       if (this.$route.params._id) {
-        categoryApi.detail(this.form).then((res) => {
+        categoryApi.categoryEdit(this.form).then((res) => {
           console.log(res);
           this.$message.success('修改成功');
           this.$router.push({

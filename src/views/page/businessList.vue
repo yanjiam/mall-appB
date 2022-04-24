@@ -68,7 +68,7 @@ export default {
       this.$confirm({
         title: '确认删除',
         content: () => (
-          <div style="color:red;">{`确认删除:${record.b_name}的类目吗`}</div>
+          <div style="color:red;">{`确认删除:${record.bname}的类目吗`}</div>
         ),
         onOk: () => {
           businessApi

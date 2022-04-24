@@ -5,7 +5,7 @@ import axios from '@/axios';
 export default {
   // 查询类目列表接口
   list(params) {
-    return axios.post('/category/all', params);
+    return axios.post('/category/list', params);
   },
   // 添加类目
   categoryAdd(params) {

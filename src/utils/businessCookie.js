@@ -15,14 +15,14 @@ export function setCookie(info) {
  */
 export function getBusinessCookie() {
   return {
-    b_name: Cookies.get('b_name'),
+    bname: Cookies.get('bname'),
     pin: Cookies.get('pin'),
     power: Cookies.get('power'),
   };
 }
 
 export function removeBusinessCookie() {
-  Cookies.remove('b_name');
+  Cookies.remove('bname');
   Cookies.remove('pin');
   Cookies.remove('power');
   return true;

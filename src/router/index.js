@@ -198,7 +198,7 @@ const router = new VueRouter({
 let isAddRoutes = false;
 router.beforeEach((to, from, next) => {
   if (to.path !== '/login') {
-    if (store.state.business.pin && store.state.business.b_name && store.state.business.power) {
+    if (store.state.business.pin && store.state.business.bname && store.state.business.power) {
       if (!isAddRoutes) {
         const menuRoutes = getMenuRoutes(store.state.business.power, ayncRouterMap);
         store.dispatch('changeMenuRoutes', routes.concat(menuRoutes)).then(() => {

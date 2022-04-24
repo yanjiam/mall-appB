@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       form: {
-        b_name: '',
+        bname: '',
         passwd: '',
         avatar: '',
         power: 1,

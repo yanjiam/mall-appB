@@ -22,7 +22,7 @@ export default new Vuex.Store({
     },
     logout(state) {
       state.business = {
-        b_name: '',
+        bname: '',
         pin: '',
         power: '',
       };
@@ -37,8 +37,8 @@ export default new Vuex.Store({
     },
     setBusinessInfo({ commit }, businessInfo) {
       commit('setBusinessInfo', businessInfo);
-      const { pin, power } = businessInfo;
-      setCookie({ pin, power });
+      const { pin, bname, power } = businessInfo;
+      setCookie({ pin, bname, power });
     },
     logout({ commit }) {
       commit('logout');
