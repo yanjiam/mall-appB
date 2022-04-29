@@ -1,24 +1,20 @@
 <template>
   <div class="index">
     <card :data="cardData" />
-    <charts />
+    <charts :data="chartData" />
   </div>
 </template>
 
 <script>
 import Card from '@/components/card.vue';
 import Charts from '@/components/charts.vue';
-import productApi from '@/api/product';
+import echartApi from '@/api/echart';
 
 export default {
   data() {
     return {
-      cardData: {
-        saleAll: 0,
-        saleNow: 0,
-        productAll: 0,
-        productOnSale: 0,
-      },
+      cardData: {},
+      chartData: {},
     };
   },
   components: {
@@ -26,20 +22,28 @@ export default {
     Charts,
   },
   methods: {
-    queryProductAll() {
-      productApi.list().then((res) => {
-        this.cardData.productAll = res.data.total;
-      });
-    },
-    queryProductOnsale() {
-      productApi.list({ sale: 1 }).then((res) => {
-        this.cardData.productOnSale = res.data.total;
+    queryEchartsData() {
+      echartApi.queryEchartsData().then((res) => {
+        const {
+          nowOrderCount,
+          orderCount,
+          productCount,
+          productOnsale,
+          XData,
+          YData,
+        } = res.data.data;
+        this.cardData = {
+          nowOrderCount,
+          orderCount,
+          productCount,
+          productOnsale,
+        };
+        this.chartData = { XData, YData };
       });
     },
   },
   mounted() {
-    this.queryProductAll();
-    this.queryProductOnsale();
+    this.queryEchartsData();
   },
 };
 </script>

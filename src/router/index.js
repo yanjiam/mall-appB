@@ -157,6 +157,28 @@ const ayncRouterMap = [
       },
     ],
   },
+  {
+    path: '/order',
+    name: 'Order',
+    meta: {
+      title: '订单管理',
+      icon: 'inbox',
+      hidden: false,
+    },
+    component: Home,
+    children: [
+      {
+        path: 'list',
+        name: 'OrderList',
+        meta: {
+          title: '订单列表',
+          icon: 'unordered-list',
+          hidden: false,
+        },
+        component: () => import('@/views/page/orderList.vue'),
+      },
+    ],
+  },
 ];
 
 const routes = [
