@@ -1,58 +1,84 @@
 <template>
-  <!-- <ve-line :data="chartData"></ve-line> -->
-  <div>1</div>
+  <div class="echarts">
+    <div id="main"></div>
+    <div class="empty" v-if="empty">暂无数据</div>
+  </div>
 </template>
 
 <script>
+import * as echarts from 'echarts';
+
 export default {
+  props: ['data'],
   data() {
-    this.chartSettings = {
-      stack: { 用户: ['访问用户', '下单用户'] },
-      area: true,
-    };
     return {
-      chartData: {
-        columns: ['日期', '访问用户', '下单用户', '下单率'],
-        rows: [
-          {
-            日期: '1/1',
-            访问用户: 1393,
-            下单用户: 1093,
-            下单率: 0.32,
+      empty: true,
+    };
+  },
+  methods: {
+    getOptions(data) {
+      return {
+        title: {
+          text: '热销商品前十',
+          left: 'center',
+        },
+        xAxis: {
+          type: 'category',
+          data: data?.XData || [],
+        },
+        yAxis: {
+          type: 'value',
+          name: '件数',
+          alignTicks: true,
+          axisLine: {
+            show: true,
           },
+        },
+        series: [
           {
-            日期: '1/2',
-            访问用户: 3530,
-            下单用户: 3230,
-            下单率: 0.26,
-          },
-          {
-            日期: '1/3',
-            访问用户: 2923,
-            下单用户: 2623,
-            下单率: 0.76,
-          },
-          {
-            日期: '1/4',
-            访问用户: 1723,
-            下单用户: 1423,
-            下单率: 0.49,
-          },
-          {
-            日期: '1/5',
-            访问用户: 3792,
-            下单用户: 3492,
-            下单率: 0.323,
-          },
-          {
-            日期: '1/6',
-            访问用户: 4593,
-            下单用户: 4293,
-            下单率: 0.78,
+            data: data?.YData || [],
+            type: 'bar',
           },
         ],
-      },
-    };
+      };
+    },
+    initEcharts() {
+      if (!this.data?.XData?.length || !this.data?.YData?.length) {
+        this.empty = true;
+      }
+      const myChart = echarts.init(document.getElementById('main'));
+      myChart.setOption(this.getOptions());
+    },
+  },
+  watch: {
+    data() {
+      this.initEcharts();
+    },
+  },
+  mounted() {
+    this.initEcharts();
   },
 };
 </script>
+
+<style lang="less" scoped>
+.echarts {
+  width: 100%;
+  height: 700px;
+  position: relative;
+  #main {
+    height: 100%;
+  }
+  .empty {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 30px;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>
